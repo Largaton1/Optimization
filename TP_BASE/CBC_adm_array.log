@@ -1,0 +1,41 @@
+Welcome to the CBC MILP Solver 
+Version: 2.10.3 
+Build Date: Dec 15 2019 
+
+command line - c:\Users\LARGATON\OneDrive - Université de Rennes\PL - Programmation Linéaire\TP\TP_BASE\.venv\Lib\site-packages\pulp\apis\..\solverdir\cbc\win\64\cbc.exe C:\Users\LARGATON\AppData\Local\Temp\e9e7f6176a5c4a7991555d1fd579bea7-pulp.mps max timeMode elapsed branch printingOptions all solution C:\Users\LARGATON\AppData\Local\Temp\e9e7f6176a5c4a7991555d1fd579bea7-pulp.sol (default strategy 1)
+At line 2 NAME          MODEL
+At line 3 ROWS
+At line 22 COLUMNS
+At line 77 RHS
+At line 95 BOUNDS
+At line 105 ENDATA
+Problem MODEL has 17 rows, 9 columns and 27 elements
+Coin0008I MODEL read with 0 errors
+Option for timeMode changed from cpu to elapsed
+Continuous objective value is 31 - 0.00 seconds
+Cgl0004I processed model has 6 rows, 7 columns (7 integer (0 of which binary)) and 13 elements
+Cutoff increment increased from 1e-05 to 0.9999
+Cbc0012I Integer solution of -31 found by DiveCoefficient after 0 iterations and 0 nodes (0.00 seconds)
+Cbc0001I Search completed - best objective -31, took 0 iterations and 0 nodes (0.00 seconds)
+Cbc0035I Maximum depth 0, 0 variables fixed on reduced cost
+Cuts at root node changed objective from -31 to -31
+Probing was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Gomory was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Knapsack was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Clique was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+MixedIntegerRounding2 was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+FlowCover was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+TwoMirCuts was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+ZeroHalf was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+
+Result - Optimal solution found
+
+Objective value:                31.00000000
+Enumerated nodes:               0
+Total iterations:               0
+Time (CPU seconds):             0.00
+Time (Wallclock seconds):       0.00
+
+Option for printingOptions changed from normal to all
+Total time (CPU seconds):       0.01   (Wallclock seconds):       0.01
+

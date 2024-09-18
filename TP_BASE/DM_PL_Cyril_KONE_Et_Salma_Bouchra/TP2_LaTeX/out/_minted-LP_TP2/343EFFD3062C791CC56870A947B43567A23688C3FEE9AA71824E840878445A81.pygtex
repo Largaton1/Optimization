@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{for} \PYG{n}{adm\PYGZus{}cells}\PYG{p}{,} \PYG{n}{row\PYGZus{}limits}\PYG{p}{,} \PYG{n}{col\PYGZus{}limits} \PYG{o+ow}{in} \PYG{n}{get\PYGZus{}adm\PYGZus{}cells\PYGZus{}data}\PYG{p}{():}
+    \PYG{c+c1}{\PYGZsh{} adm\PYGZus{}cells: list of tuple (row\PYGZus{}i, col\PYGZus{}j)}
+    \PYG{c+c1}{\PYGZsh{}   corresponding to admissible cells}
+    \PYG{c+c1}{\PYGZsh{} row\PYGZus{}limits: list of row limits (int)}
+    \PYG{c+c1}{\PYGZsh{} col\PYGZus{}limits: list of column limits (int)}
+    \PYG{n}{solve\PYGZus{}admissible\PYGZus{}cells}\PYG{p}{(}\PYG{n}{adm\PYGZus{}cells}\PYG{p}{,} \PYG{n}{row\PYGZus{}limits}\PYG{p}{,} \PYG{n}{col\PYGZus{}limits}\PYG{p}{)}
+\end{Verbatim}
