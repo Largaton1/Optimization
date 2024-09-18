@@ -1,4 +1,4 @@
-##TP2 – How data structures affect models
+TP2 – How data structures affect models
 An illustration with the admissible cells problem
 Given a grid rectangular grid Tm×n of boxes called cells. Some of these cells are admis
 le, the others are non-admissible. Also are given m + n non-negative integers l0 . . . lm−1,
