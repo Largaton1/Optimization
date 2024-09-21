@@ -2,7 +2,7 @@ Welcome to the CBC MILP Solver
 Version: 2.10.3 
 Build Date: Dec 15 2019 
 
-command line - c:\Users\LARGATON\OneDrive - Université de Rennes\Master 1 MIAGE\S1\MOD\TP\Optimization\.venv\Lib\site-packages\pulp\apis\..\solverdir\cbc\win\64\cbc.exe C:\Users\LARGATON\AppData\Local\Temp\002c250f4bb447f4a14153275b5c3c84-pulp.mps max timeMode elapsed branch printingOptions all solution C:\Users\LARGATON\AppData\Local\Temp\002c250f4bb447f4a14153275b5c3c84-pulp.sol (default strategy 1)
+command line - c:\Users\LARGATON\OneDrive - Université de Rennes\Master 1 MIAGE\S1\MOD\TP\Optimization\.venv\Lib\site-packages\pulp\apis\..\solverdir\cbc\win\64\cbc.exe C:\Users\LARGATON\AppData\Local\Temp\876977632a454cb082962239ec9b7101-pulp.mps max timeMode elapsed branch printingOptions all solution C:\Users\LARGATON\AppData\Local\Temp\876977632a454cb082962239ec9b7101-pulp.sol (default strategy 1)
 At line 2 NAME          MODEL
 At line 3 ROWS
 At line 22 COLUMNS
@@ -37,5 +37,5 @@ Time (CPU seconds):             0.01
 Time (Wallclock seconds):       0.01
 
 Option for printingOptions changed from normal to all
-Total time (CPU seconds):       0.02   (Wallclock seconds):       0.02
+Total time (CPU seconds):       0.06   (Wallclock seconds):       0.07
 

@@ -48,7 +48,7 @@ def set_model_admissible_set(st_adm, l_row_limits, l_col_limits,l_diag_limits):
     # ------------------------------------------------------------------------ #
 
     for j in range(n_col) :
-          prob += (
+        prob += (
                 lpSum(d_cells[(k, l)] for (k,l) in st_adm if l == j)  <= l_col_limits[j], f'Col_limit_constraints_{j}',
           )
           
