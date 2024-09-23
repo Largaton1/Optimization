@@ -50,12 +50,12 @@ def set_model_admissible_set(st_adm, l_row_limits, l_col_limits,l_diag_limits):
     for j in range(n_col) :
         prob += (
                 lpSum(d_cells[(k, l)] for (k,l) in st_adm if l == j)  <= l_col_limits[j], f'Col_limit_constraints_{j}',
-          )
-          
+        )
+        
     for i in range(n_row):
-          prob += (
+        prob += (
                 lpSum(d_cells[(k, l)] for (k,l) in st_adm if k == i)  <= l_row_limits[i], f'Row_limit_constraints_{i}',
-          )
+        )
 
     for d in range (n_diag) :
         # diag_cells = {(i,j) for i in range(n_row) for j in range(n_col) if i+j == d}

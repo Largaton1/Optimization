@@ -90,7 +90,7 @@ def solve_admissible_cells_array(l_adm_cells, l_row_limits, l_col_limits,l_diag_
     # The array of size m * n:
     m = len(l_row_limits)
     n = len(l_col_limits)
-  #  d = len(l_diag_limits)
+    #  d = len(l_diag_limits)
     #   ll_adm[i][j] = 1 if cells (i, j) is admissible, else 0
     ll_adm = [[0 for _ in range(n)] for _ in range(m)]
     for (i, j) in l_adm_cells:

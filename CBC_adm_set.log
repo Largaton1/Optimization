@@ -2,7 +2,7 @@ Welcome to the CBC MILP Solver
 Version: 2.10.3 
 Build Date: Dec 15 2019 
 
-command line - c:\Users\LARGATON\OneDrive - Université de Rennes\Master 1 MIAGE\S1\MOD\TP\Optimization\.venv\Lib\site-packages\pulp\apis\..\solverdir\cbc\win\64\cbc.exe C:\Users\LARGATON\AppData\Local\Temp\876977632a454cb082962239ec9b7101-pulp.mps max timeMode elapsed branch printingOptions all solution C:\Users\LARGATON\AppData\Local\Temp\876977632a454cb082962239ec9b7101-pulp.sol (default strategy 1)
+command line - c:\Users\LARGATON\OneDrive - Université de Rennes\Master 1 MIAGE\S1\MOD\TP\Optimization\.venv\Lib\site-packages\pulp\apis\..\solverdir\cbc\win\64\cbc.exe C:\Users\LARGATON\AppData\Local\Temp\1eb0004afb854770828bf83451327f2f-pulp.mps max timeMode elapsed branch printingOptions all solution C:\Users\LARGATON\AppData\Local\Temp\1eb0004afb854770828bf83451327f2f-pulp.sol (default strategy 1)
 At line 2 NAME          MODEL
 At line 3 ROWS
 At line 22 COLUMNS
@@ -15,8 +15,8 @@ Option for timeMode changed from cpu to elapsed
 Continuous objective value is 31 - 0.00 seconds
 Cgl0004I processed model has 6 rows, 7 columns (7 integer (0 of which binary)) and 13 elements
 Cutoff increment increased from 1e-05 to 0.9999
-Cbc0012I Integer solution of -31 found by DiveCoefficient after 0 iterations and 0 nodes (0.01 seconds)
-Cbc0001I Search completed - best objective -31, took 0 iterations and 0 nodes (0.01 seconds)
+Cbc0012I Integer solution of -31 found by DiveCoefficient after 0 iterations and 0 nodes (0.00 seconds)
+Cbc0001I Search completed - best objective -31, took 0 iterations and 0 nodes (0.00 seconds)
 Cbc0035I Maximum depth 0, 0 variables fixed on reduced cost
 Cuts at root node changed objective from -31 to -31
 Probing was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
@@ -33,9 +33,9 @@ Result - Optimal solution found
 Objective value:                31.00000000
 Enumerated nodes:               0
 Total iterations:               0
-Time (CPU seconds):             0.01
-Time (Wallclock seconds):       0.01
+Time (CPU seconds):             0.00
+Time (Wallclock seconds):       0.00
 
 Option for printingOptions changed from normal to all
-Total time (CPU seconds):       0.06   (Wallclock seconds):       0.07
+Total time (CPU seconds):       0.01   (Wallclock seconds):       0.01
 
