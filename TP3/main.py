@@ -4,42 +4,51 @@
 
 from pathlib import Path  # built-in usefull Path class
 
-from pulp import PULP_CBC_CMD, LpMaximize, LpProblem, LpStatus
+from pulp import (
+    PULP_CBC_CMD,
+    LpMinimize,
+    LpProblem,
+    LpStatus,
+    LpVariable,
+    lpSum,
+    LpBinary,
+)
 
 
 # ============================================================================ #
 #                                  SET MODEL                                   #
 # ============================================================================ #
-def set_model_name():
-    """TODO: Description."""
+def set_model_parking(t_lambda, max_left_length, max_right_length, max_total_length, mix_total_length):
+    """The optimal parking problem"""
     # ------------------------------------------------------------------------ #
-    # Linear problem with maximization
+    # Linear problem with minimization
     # ------------------------------------------------------------------------ #
-    prob = LpProblem(name='name', sense=LpMaximize)
-    # FIXME: it is not always a maximization problem ...
+    prob = LpProblem(name='optimal_parking_problem', sense=LpMinimize)
+    # FIXME: it is not always a minimization problem ...
 
     # ------------------------------------------------------------------------ #
     # The variables
     # ------------------------------------------------------------------------ #
-    # TODO: set variables
-
+    X_i=[LpVariable(f'x{i}', lowBound=0, cat=LpBinary) for i in range((len(X_i) - 1) + 1)]
+    maxLength=LpVariable(f'maxL', lowBound=0)
     # ------------------------------------------------------------------------ #
     # The objective function
     # ------------------------------------------------------------------------ #
-    # TODO: write the objective function
+    prob += lpSum([t_lambda[i] * (X_i[i] + (1 - X_i[i])) for i in range(X_i)]), "Total_parking_length"
 
     # ------------------------------------------------------------------------ #
     # The constraints
     # ------------------------------------------------------------------------ #
-    # TODO: write constraints
+    prob+=lpSum((t_lambda[i]*X_i) for i in range(len(t_lambda)))
+    prob+=lpSum(t_lambda[i] * (1-X_i) for i in range(len(t_lambda)))
 
-    return prob
+    return prob, X_i
 
 
 # ============================================================================ #
 #                               SOLVE WITH DATA                                #
 # ============================================================================ #
-def solve_something():
+def solve_parking_problem():
     """TODO: Description."""
     # ------------------------------------------------------------------------ #
     # Set data
@@ -49,7 +58,7 @@ def solve_something():
     # ------------------------------------------------------------------------ #
     # Solve the problem using the model
     # ------------------------------------------------------------------------ #
-    prob = set_model_name()
+    prob = set_model_parking()
     # Coin Branch and Cut solver is used to solve the instanced model
     # TODO: change the log path file
     prob.solve(
@@ -94,4 +103,4 @@ def print_log_output(prob: LpProblem):
 
 if __name__ == '__main__':
 
-    solve_something()
+    solve_parking_problem()
