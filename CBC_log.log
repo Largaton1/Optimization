@@ -1,0 +1,18 @@
+Welcome to the CBC MILP Solver 
+Version: 2.10.3 
+Build Date: Dec 15 2019 
+
+command line - c:\Users\LARGATON\OneDrive - Université de Rennes\Master 1 MIAGE\S1\MOD\TP\Optimization\.venv\Lib\site-packages\pulp\apis\..\solverdir\cbc\win\64\cbc.exe C:\Users\LARGATON\AppData\Local\Temp\bd9c5f9e6f964d4b8280ca13ef1e7f18-pulp.mps timeMode elapsed branch printingOptions all solution C:\Users\LARGATON\AppData\Local\Temp\bd9c5f9e6f964d4b8280ca13ef1e7f18-pulp.sol (default strategy 1)
+At line 2 NAME          MODEL
+At line 3 ROWS
+At line 9 COLUMNS
+At line 71 RHS
+At line 76 BOUNDS
+At line 93 ENDATA
+Problem MODEL has 4 rows, 16 columns and 30 elements
+Coin0008I MODEL read with 0 errors
+Option for timeMode changed from cpu to elapsed
+Problem is infeasible - 0.00 seconds
+Option for printingOptions changed from normal to all
+Total time (CPU seconds):       0.02   (Wallclock seconds):       0.02
+

@@ -1,9 +1,7 @@
 # -*- coding=utf-8 -*-
+"""Optimal Parking Problem Model Using PuLP."""
 
-"""TODO: DESCRIPTION."""
-
-from pathlib import Path  # built-in usefull Path class
-
+from pathlib import Path  # built-in useful Path class
 from pulp import (
     PULP_CBC_CMD,
     LpMinimize,
@@ -14,7 +12,6 @@ from pulp import (
     LpBinary,
 )
 
-
 # ============================================================================ #
 #                                  SET MODEL                                   #
 # ============================================================================ #
@@ -24,39 +21,47 @@ def set_model_parking(t_lambda, max_left_length, max_right_length, max_total_len
     # Linear problem with minimization
     # ------------------------------------------------------------------------ #
     prob = LpProblem(name='optimal_parking_problem', sense=LpMinimize)
-    # FIXME: it is not always a minimization problem ...
 
     # ------------------------------------------------------------------------ #
     # The variables
-    # Variables: x_i = 1 if car i is on the left side, 0 if on the right side
+    # Variables: X = 1 if car i is on the left side, 0 if on the right side
     # ------------------------------------------------------------------------ #
-    X_i = [LpVariable(f'X_i{i}', lowBound=0, cat=LpBinary) for i in range(len(t_lambda))]
+    X_i = [LpVariable(f'X_i{i}', cat=LpBinary) for i in range(1, len(t_lambda) + 1)]
+    # Longueur totale du côté gauche (Lleft)
+    Lleft = lpSum(t_lambda[i] * X_i[i] for i in range(1, len(t_lambda) + 1))
+    # Longueur totale du côté droite (Lright)
+    Lright = lpSum(t_lambda[i] * (1-X_i[i]) for i in range(len(t_lambda) + 1))
+    #Longueur totale des voitures garées
+    Ltotal = lpSum(t_lambda[i] for i in range(1, len(t_lambda) + 1))
 
-    max_left_length=LpVariable(f'maxLeft', lowBound=0)
-    max_right_length=LpVariable(f'maxRight', lowBound=0)
-    max_total_length=LpVariable(f'maxTotal', lowBound=0)
-    min_total_length=LpVariable(f'minTotal', lowBound=0)
     # ------------------------------------------------------------------------ #
     # The objective function
+    # Minimize the total parking length
     # ------------------------------------------------------------------------ #
-    prob += lpSum([t_lambda[i] for i in range(len(t_lambda))]), "Total_parking_length"
+    prob += Lleft + Lright, "Total_parking_length"
 
     # ------------------------------------------------------------------------ #
     # The constraints
     # ------------------------------------------------------------------------ #
 
-    # Constraint 1: Length on the left side <= max_left_length
-    prob += lpSum([t_lambda[i] * X_i[i] for i in range(len(t_lambda))]) <= max_left_length, "Left_side_limit"
+    # Constraint 1:  the sum of cars’ length parked on the left side should be less than 20 meters;
+    prob += Lleft <= 20
 
-    # Constraint 2: Length on the right side <= max_right_length
-    prob += lpSum([t_lambda[i] * (1 - X_i[i]) for i in range(len(t_lambda))]) <= max_right_length, "Right_side_limit"
+    # Constraint 2: cars are allowed to occupy more or equal to 16m on no more than one of the street sides
 
-    # Constraint 3: Total length parked <= max_total_length
-    prob += lpSum([t_lambda[i] for i in range(len(t_lambda))]) <= max_total_length, "Max_total_length"
+    over_left = Lleft >= 16
+    over_right = Lright >= 16
+    prob += over_left + over_right <= 1
 
-    # Constraint 4: Total length parked >= min_total_length
-    prob += lpSum([t_lambda[i] for i in range(len(t_lambda))]) >= min_total_length, "Min_total_length"
+    # Constraint 3: cars longer than 4 meters should be parked on left side;
+    for i in range(1, len(t_lambda) + 1):
+        if t_lambda[i] > 4:
+            prob += X_i[i] == 1
 
+    # Constraint 4:  if the length of the left side is larger than 10 meters, the length of the right side should be smaller than 13 meters.
+
+    M = 1000  # Big M
+    prob += Lright <= 13 + M * (1 - (Lleft > 10))
 
     return prob, X_i
 
@@ -64,24 +69,18 @@ def set_model_parking(t_lambda, max_left_length, max_right_length, max_total_len
 # ============================================================================ #
 #                               SOLVE WITH DATA                                #
 # ============================================================================ #
-def solve_parking_problem(t_lambda, max_left_length, max_right_length, max_total_length, mix_total_length):
-    """TODO: Description."""
+def solve_parking_problem(t_lambda, max_left_length, max_right_length, max_total_length, min_total_length):
+    """Solve the parking problem."""
     # ------------------------------------------------------------------------ #
-    # Set data
+    # Set the model with data
     # ------------------------------------------------------------------------ #
-    prob, X_i = set_model_parking(t_lambda, max_left_length, max_right_length, max_total_length, min_total_length)
+    prob, X = set_model_parking(t_lambda, max_left_length, max_right_length, max_total_length, min_total_length)
 
     # ------------------------------------------------------------------------ #
     # Solve the problem using the model
     # ------------------------------------------------------------------------ #
-    prob = set_model_parking(t_lambda, max_left_length, max_right_length, max_total_length, mix_total_length)
-    # Coin Branch and Cut solver is used to solve the instanced model
-    # TODO: change the log path file
-    prob.solve(
-        PULP_CBC_CMD(
-            msg=False, logPath=Path('./CBC_log.log'),
-        ),
-    )
+    prob.solve(PULP_CBC_CMD(msg=True, logPath=Path('./CBC_log.log')))
+
     # ------------------------------------------------------------------------ #
     # Print the solver output
     # ------------------------------------------------------------------------ #
@@ -97,32 +96,29 @@ def print_log_output(prob: LpProblem):
     print('-' * 40)
     print('Stats')
     print('-' * 40)
-    print()
-    print(f'Number variables: {prob.numVariables()}')
-    print(f'Number constraints: {prob.numConstraints()}')
-    print()
-    print('Time:')
-    print(f'- (real) {prob.solutionTime}')
-    print(f'- (CPU) {prob.solutionCpuTime}')
+    print(f'Number of variables: {prob.numVariables()}')
+    print(f'Number of constraints: {prob.numConstraints()}')
     print()
 
-    print(f'Solve status: {LpStatus[prob.status]}')
+    print(f'Solution Status: {LpStatus[prob.status]}')
     print(f'Objective value: {prob.objective.value()}')
 
-    print()
     print('-' * 40)
     print("Variables' values")
     print('-' * 40)
-    print()
-    # TODO: you can print variables value here
     for v in prob.variables():
         print(f'{v.name}: {v.varValue}')
 
-if __name__ == '__main__':
-    t_lambda = [10, 15, 20, 25]  # Example car lengths
-    max_left_length = 50
-    max_right_length = 50
-    max_total_length = 150
-    min_total_length = 100
 
+if __name__ == '__main__':
+    # Sample data: Lengths of cars (example values)
+    t_lambda = [4, 4.5, 3, 4.1, 2.4, 4.2, 3.7, 3.5, 3.2, 4.5, 2.3, 3.3, 3.8, 4.6, 3]
+
+    # Constraints on parking lengths
+    max_left_length = 20  # Maximum length allowed on the left side
+    max_right_length = 20  # Maximum length allowed on the right side
+    max_total_length = 50  # Maximum total length for all cars
+    min_total_length = 30  # Minimum total length for all cars
+
+    # Solve the problem
     solve_parking_problem(t_lambda, max_left_length, max_right_length, max_total_length, min_total_length)
