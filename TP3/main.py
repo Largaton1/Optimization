@@ -58,7 +58,7 @@ def set_model_parking(t_lambda):
             prob += X_i[i] == 1
 
     #Constraint 4: if the length of the left side is larger than 10 meters, the length of the rightside should be smaller than 13 meters.
-    M = 1000  # Big contraite M
+    M = 1000  # Big contrainte M
     Y = LpVariable("Y", cat=LpBinary)
     prob += Lleft <= 10 + M * Y, "10m comme limite à gauche"
     prob += Lright <= 13 + M * (1 - Y), "13m comme limite à droite"
